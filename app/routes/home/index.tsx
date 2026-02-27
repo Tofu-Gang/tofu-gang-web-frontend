@@ -1,9 +1,9 @@
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/index";
 
 export function meta({}: Route.MetaArgs) {
     return [
         {
-            title: "Tofu Gang"
+            title: "Tofu Gang | Welcome"
         },
         {
             name: "description",
@@ -12,8 +12,10 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-export default function Home() {
+export default function Index() {
     return (
-        <>Tofu Gang Web</>
+        <section>
+            Tofu Gang Web
+        </section>
     );
 }

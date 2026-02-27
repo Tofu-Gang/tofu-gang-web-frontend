@@ -27,6 +27,21 @@ export const links: Route.LinksFunction = () => [
     }
 ];
 
+/*
+ * fallback for when a page does not provide its info
+ */
+export function meta({}: Route.MetaArgs) {
+    return [
+        {
+            title: "Tofu Gang"
+        },
+        {
+            name: "description",
+            content: "Tofu Gang web portfolio"
+        }
+    ];
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en">
