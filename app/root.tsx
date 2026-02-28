@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import React from "react";
+import Navbar from "~/components/Navbar";
 
 export const links: Route.LinksFunction = () => [
     {
@@ -52,6 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Links />
         </head>
         <body>
+            <Navbar />
             <main className="max-w-6xl mx-auto px-6 my-8">
                 {children}
             </main>
