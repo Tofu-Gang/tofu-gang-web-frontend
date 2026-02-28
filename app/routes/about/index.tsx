@@ -12,14 +12,15 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-function Index() {
+// TODO: As with layouts, rename to AboutPage?
+function About() {
     return (
-        <section>
+        <>
             <h2 className="text-3xl font-bold text-white mb-2">
                 Hey, I'm Jakub! 👋
             </h2>
-        </section>
+        </>
     );
 }
 
-export default Index;
+export default About;
