@@ -1,4 +1,5 @@
 import type { Route } from "./+types/index";
+import Hero from "~/components/Hero";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -15,7 +16,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Index() {
     return (
         <section>
-            Tofu Gang Web
+            <Hero />
         </section>
     );
 }
