@@ -1,6 +1,7 @@
 import type { Route } from "./+types/index";
 import type { Project } from "~/types";
 import axios, { type AxiosResponse } from "axios";
+import ProjectCard from "~/components/ProjectCard";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -28,6 +29,12 @@ function Projects({ loaderData }: Route.ComponentProps) {
             <h2 className="text-3xl text-white font-bold mb-8">
                 🚀 Projects
             </h2>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+                {projects.map((project: Project) => (
+                    <ProjectCard key={project.id} project={project} />
+                ))}
+            </div>
         </>
     );
 }
