@@ -4,6 +4,8 @@ import axios, { type AxiosResponse } from "axios";
 import { useState } from "react";
 import ProjectCard from "~/components/ProjectCard";
 import Pagination from "~/components/Pagination";
+import CategoryFilter from "~/components/CategoryFilter";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -25,15 +27,24 @@ export async function loader({ request }: Route.LoaderArgs):Promise<{projects: P
 // TODO: As with layouts, rename to ProjectsPage?
 function Projects({ loaderData }: Route.ComponentProps) {
     const { projects } = loaderData as {projects: Project[]};
+    // TODO: move "All" to some sort of global settings/constants?
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    // get unique categories
+    const categories = ["All", ...new Set(projects.map((project) => project.category))];
+    // filter projects based on selected category
+    const filteredProjects = selectedCategory === "All" ?
+        projects :
+        projects.filter((project) => project.category === selectedCategory);
+
     const [currentPage, setCurrentPage] = useState(1);
     // TODO: move to some sort of global settings?
     const projectsPerPage = 2;
     // calculate total pages
-    const totalPages = Math.ceil(projects.length / projectsPerPage);
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     // get current page projects
     const indexOfLastProject = currentPage * projectsPerPage;
     const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-    const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+    const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
 
     return (
         <>
@@ -41,11 +52,21 @@ function Projects({ loaderData }: Route.ComponentProps) {
                 🚀 Projects
             </h2>
 
-            <div className="grid gap-6 sm:grid-cols-2">
-                {currentProjects.map((project: Project) => (
-                    <ProjectCard key={project.id} project={project} />
-                ))}
-            </div>
+            <CategoryFilter categories={categories} selectedCategory={selectedCategory} onCategoryChange={(category) => {
+                setSelectedCategory(category);
+                setCurrentPage(1);
+            }} />
+
+            <AnimatePresence mode="wait">
+                <motion.div layout className="grid gap-6 sm:grid-cols-2">
+                    {currentProjects.map((project: Project) => (
+                        <motion.div key={project.id} layout>
+                            <ProjectCard project={project} />
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </AnimatePresence>
+
             <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={setCurrentPage} />
         </>
     );
