@@ -20,7 +20,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs):Promise<{projects: Project[]}> {
-    const response: AxiosResponse<Project[]> = await axios.get("http://localhost:8000/projects");
+    const response: AxiosResponse<Project[]> = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
     return { projects: response.data };
 }
 
