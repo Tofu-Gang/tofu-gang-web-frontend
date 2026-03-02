@@ -6,7 +6,8 @@
             "description": "A simple metronome for musicians.",
             "image": "/images/metronome.png",
             "url": "https://metronome-ten.vercel.app/",
-            "blog": "1",
+            "github": "https://github.com/Tofu-Gang/metronome",
+            "blog": "metronome",
             "date": "2026-01-11",
             "category": "Frontend",
             "featured": true
@@ -17,7 +18,8 @@
             "description": "Generate musical notes based on decimal representation of number Pi.",
             "image": "/images/pi-generator.png",
             "url": "https://pi-generator-wheat.vercel.app/",
-            "blog": "2",
+            "github": "https://github.com/Tofu-Gang/pi-generator",
+            "blog": "pi-generator",
             "date": "2026-02-16",
             "category": "Frontend",
             "featured": true
@@ -28,7 +30,8 @@
             "description": "Implementation of a classic \"Klotski\" sliding puzzle.",
             "image": "/images/klotski.png",
             "url": "https://klotski-eight.vercel.app/",
-            "blog": "3",
+            "github": "https://github.com/Tofu-Gang/klotski",
+            "blog": "klotski",
             "date": "2026-03-01",
             "category": "Frontend",
             "featured": false
@@ -38,7 +41,8 @@
             "description": "Portfolio page with all my projects.",
             "image": "/images/tofu-gang-web.png",
             "url": "http://example.com",
-            "blog": "4",
+            "github": "https://github.com/Tofu-Gang/tofu-gang-web-frontend",
+            "blog": "tofu-gang-web",
             "date": "2026-03-01",
             "category": "Fullstack",
             "featured": false

@@ -35,6 +35,16 @@ function ProjectDetails({ loaderData }:Route.ComponentProps) {
                     <p className="text-gray-300 text-sm mb-4">{new Date(project.date).toLocaleDateString()} • {project.category}</p>
                     <p className="text-gray-200 mb-6">{project.description}</p>
                     <a
+                        href={project.github}
+                        target="_blank"
+                        className="flex items-center text-blue-400 hover:text-blue-500 mb-6"
+                    >
+                        Github Repository <FaArrowRight className="inline ml-2" />
+                    </a>
+                    <Link to={`/blog/${project.blog}`} className="flex items-center text-blue-400 hover:text-blue-500 mb-6">
+                        Blog Post <FaArrowRight className="inline ml-2" />
+                    </Link>
+                    <a
                         href={project.url}
                         target="_blank"
                         className="inline-block text-white bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded transition"

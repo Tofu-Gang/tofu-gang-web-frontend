@@ -4,6 +4,7 @@ export type Project = {
     description: string;
     image: string;
     url: string;
+    github: string;
     blog: string;
     date: string;
     category: string;
