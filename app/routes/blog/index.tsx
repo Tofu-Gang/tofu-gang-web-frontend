@@ -23,7 +23,12 @@ export async function loader({ request }: Route.LoaderArgs): Promise<{posts: Pos
         // TODO: 404 page here?
         throw new Error("Failed to fetch blog metadata!");
     } else {
-        return { posts: response.data };
+        const posts = response.data;
+        // sort desc by date (newest first)
+        posts.sort((a: PostMeta, b: PostMeta) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime();
+        });
+        return { posts };
     }
 }
 
