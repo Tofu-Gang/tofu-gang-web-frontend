@@ -1,7 +1,8 @@
 import type { Route } from "./+types/index";
 import FeaturedProjects from "~/components/FeaturedProjects";
-import type {Project} from "~/types";
-import axios, {type AxiosResponse} from "axios";
+import type { Project } from "~/types";
+import axios, { type AxiosResponse } from "axios";
+import AboutPreview from "~/components/AboutPreview";
 
 export function meta({}: Route.MetaArgs) {
     return [
@@ -28,6 +29,7 @@ function Home({ loaderData }: Route.ComponentProps) {
         <>
             {/* TODO: move count to some sort of global settings? */}
             <FeaturedProjects projects={projects} count={2} />
+            <AboutPreview />
         </>
     );
 }
