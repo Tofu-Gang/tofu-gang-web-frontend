@@ -22,7 +22,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
             excerpt: item.excerpt,
             body: item.body,
             date: item.date,
-            image: item.image?.url && `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
+            image: item.image?.url && item.image.url
         }
         return { post };
     }

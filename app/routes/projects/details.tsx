@@ -17,7 +17,7 @@ export async function loader({ request, params }: Route.LoaderArgs):Promise<{ pr
             documentId: item.documentId,
             title: item.title,
             description: item.description,
-            image: `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`,
+            image: item.image.url,
             url: item.url,
             github: item.github,
             blog: item.blog,
