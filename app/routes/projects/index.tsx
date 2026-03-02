@@ -1,5 +1,5 @@
 import type { Route } from "./+types/index";
-import type { Project } from "~/types";
+import type { Project, StrapiProject } from "~/types";
 import axios, { type AxiosResponse } from "axios";
 import { useState } from "react";
 import ProjectCard from "~/components/ProjectCard";
@@ -20,8 +20,21 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs):Promise<{projects: Project[]}> {
-    const response: AxiosResponse<Project[]> = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
-    return { projects: response.data };
+    const response: AxiosResponse<{data: StrapiProject[]}> = await axios.get(`${import.meta.env.VITE_API_URL}/projects?populate=*`);
+    const projects = response.data.data.map((item: StrapiProject) => ({
+        id: item.id,
+        documentId: item.documentId,
+        title: item.title,
+        description: item.description,
+        image: `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`,
+        url: item.url,
+        github: item.github,
+        blog: item.blog,
+        date: item.date,
+        category: item.category,
+        featured: item.featured
+    }));
+    return { projects };
 }
 
 // TODO: As with layouts, rename to ProjectsPage?

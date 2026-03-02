@@ -1,6 +1,6 @@
 import type { Route } from "./+types/index";
 import FeaturedProjects from "~/components/FeaturedProjects";
-import type { Project, PostMeta } from "~/types";
+import type { Project, PostMeta, StrapiProject } from "~/types";
 import axios, { type AxiosResponse } from "axios";
 import AboutPreview from "~/components/AboutPreview";
 import LatestPosts from "~/components/LatestPosts";
@@ -18,14 +18,29 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs):Promise<{projects: Project[]; posts: PostMeta[]}> {
-    const projectsResponse: AxiosResponse<Project[]> = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
+    const projectsResponse: AxiosResponse<{data: StrapiProject[]}> =
+        await axios.get(`${import.meta.env.VITE_API_URL}/projects?filters[featured][$eq]=true&populate=*`);
     const url = new URL("/posts-meta.json", request.url);
     const postsResponse: AxiosResponse<PostMeta[]> = await axios.get(url.href);
 
     if(projectsResponse.status !== 200 || postsResponse.status !== 200) {
         throw new Error("Failed to fetch projects or posts");
     } else {
-        const projects = projectsResponse.data.filter((project) => project.featured);
+        const projects = projectsResponse.data.data.map(
+            (item: StrapiProject) => ({
+                id: item.id,
+                documentId: item.documentId,
+                title: item.title,
+                description: item.description,
+                image: `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`,
+                url: item.url,
+                github: item.github,
+                blog: item.blog,
+                date: item.date,
+                category: item.category,
+                featured: item.featured
+            })
+        );
         const posts = postsResponse.data;
         // sort desc by date (newest first)
         posts.sort((a: PostMeta, b: PostMeta) => {

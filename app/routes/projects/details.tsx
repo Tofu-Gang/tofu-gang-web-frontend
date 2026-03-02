@@ -1,22 +1,37 @@
 import type { Route } from "./+types/details";
-import type { Project } from "~/types";
+import type { Project, StrapiProject, StrapiResponse } from "~/types";
 import axios, { type AxiosResponse } from "axios";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router";
 
-export async function loader({ request, params }: Route.LoaderArgs):Promise<Project> {
-    const response: AxiosResponse<Project> = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${params.id}`);
+export async function loader({ request, params }: Route.LoaderArgs):Promise<{ project: Project }> {
+    const { id } = params;
+    const response: AxiosResponse<StrapiResponse<StrapiProject>> = await axios.get(`${import.meta.env.VITE_API_URL}/projects?filters[documentId][$eq]=${id}&populate=*`);
     if(response.status !== 200) {
         // TODO: 404 page here?
         throw new Response("Project not found", { status: 404 });
     } else {
-        return response.data;
+        const item: StrapiProject = response.data.data[0];
+        const project: Project = {
+            id: item.id,
+            documentId: item.documentId,
+            title: item.title,
+            description: item.description,
+            image: `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`,
+            url: item.url,
+            github: item.github,
+            blog: item.blog,
+            date: item.date,
+            category: item.category,
+            featured: item.featured
+        }
+        return { project };
     }
 }
 
 // TODO: As with layouts, rename to ProjectDetailsPage?
 function ProjectDetails({ loaderData }:Route.ComponentProps) {
-    const project = loaderData;
+    const { project } = loaderData;
 
     return (
         <>
