@@ -7,6 +7,7 @@ import { Link } from "react-router";
 export async function loader({ request, params }: Route.LoaderArgs):Promise<Project> {
     const response: AxiosResponse<Project> = await axios.get(`${import.meta.env.VITE_API_URL}/projects/${params.id}`);
     if(response.status !== 200) {
+        // TODO: 404 page here?
         throw new Response("Project not found", { status: 404 });
     } else {
         return response.data;
