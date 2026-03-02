@@ -1,6 +1,6 @@
 import type { Route } from "./+types/index";
 import axios, { type AxiosResponse } from "axios";
-import type { PostMeta } from "~/types";
+import type { Post, StrapiPost } from "~/types";
 import { useState } from "react";
 import Pagination from "~/components/Pagination";
 import PostCard from "~/components/PostCard";
@@ -18,19 +18,23 @@ export function meta({}: Route.MetaArgs) {
     ];
 }
 
-export async function loader({ request }: Route.LoaderArgs): Promise<{posts: PostMeta[]}> {
-    const url = new URL("/posts-meta.json", request.url);
-    const response: AxiosResponse<PostMeta[]> = await axios.get(url.href);
+export async function loader({ request }: Route.LoaderArgs): Promise<{posts: Post[]}> {
+    const response: AxiosResponse<{data: StrapiPost[]}> =
+        await axios.get(`${import.meta.env.VITE_API_URL}/posts?populate=image&sort=date:desc`);
 
     if(response.status !== 200) {
         // TODO: 404 page here?
         throw new Error("Failed to fetch blog metadata!");
     } else {
-        const posts = response.data;
-        // sort desc by date (newest first)
-        posts.sort((a: PostMeta, b: PostMeta) => {
-            return new Date(b.date).getTime() - new Date(a.date).getTime();
-        });
+        const posts = response.data.data.map((item: StrapiPost) => ({
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            excerpt: item.excerpt,
+            body: item.body,
+            date: item.date,
+            image: item.image?.url && `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
+        }));
         return { posts };
     }
 }
