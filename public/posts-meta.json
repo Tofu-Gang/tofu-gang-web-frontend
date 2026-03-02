@@ -1,0 +1,30 @@
+[
+    {
+        "id": "1",
+        "slug": "metronome",
+        "title": "Metronome",
+        "excerpt": "How I did my first React project, a simple metronome for musicians.",
+        "date": "2026-03-01T00:00:00"
+    },
+    {
+        "id": "2",
+        "slug": "pi-generator",
+        "title": "Generating music without LLM",
+        "excerpt": "How I generate music notes in an interesting way without LLMs",
+        "date": "2026-03-01T00:00:01"
+    },
+    {
+        "id": "3",
+        "slug": "klotski",
+        "title": "A puzzle I am yet to solve - Klotski",
+        "excerpt": "How recalling a childhood memory led me to create this puzzle game.",
+        "date": "2026-03-01T00:00:02"
+    },
+    {
+        "id": "4",
+        "slug": "tofu-gang-web",
+        "title": "What lies under the hood of this portfolio page",
+        "excerpt": "This portfolio page is one of my projects too! One of the largest as well.",
+        "date": "2026-03-01T00:00:03"
+    }
+]
