@@ -11,8 +11,8 @@ function InputField({ name, label, type }: InputFieldProps) {
         <div>
             <label htmlFor={name} id={name} className="block text-sm font-medium text-gray-300">{label}</label>
             {type === "textarea" ?
-                <textarea name={name} className={inputClasses} /> :
-                <input type={type} name={name} className={inputClasses} />
+                <textarea name={name} required={true} className={inputClasses} /> :
+                <input type={type} name={name} required={true} className={inputClasses} />
             }
         </div>
     );
