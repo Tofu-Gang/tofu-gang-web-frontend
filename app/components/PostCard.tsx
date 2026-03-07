@@ -1,8 +1,19 @@
 import type { Post } from "~/types";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 function PostCard({ post }: { post: Post }) {
+    const [hydrated, setHydrated] = useState(false);
+    useEffect(() => {
+        // This forces a rerender, so the date is rendered the second time but not the first
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <article className="bg-gray-800 mb-4 p-6 rounded-lg shadow">
             <h3 className="text-2xl font-semibold text-blue-400">{post.title}</h3>

@@ -1,5 +1,6 @@
 import type { Post } from "~/types";
 import { Link } from "react-router";
+import { useEffect, useState } from "react";
 
 type LatestPostsProps = {
     posts: Post[];
@@ -7,6 +8,16 @@ type LatestPostsProps = {
 }
 
 function LatestPosts({ posts, limit }: LatestPostsProps) {
+    const [hydrated, setHydrated] = useState(false);
+    useEffect(() => {
+        // This forces a rerender, so the date is rendered the second time but not the first
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <section className="max-w-6xl mx-auto px-6 py-12">
             <h2 className="text-2xl font-bold mb-6 text-white">🆕 Latest Posts</h2>

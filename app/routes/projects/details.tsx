@@ -3,6 +3,7 @@ import type { Project, StrapiProject, StrapiResponse } from "~/types";
 import axios, { type AxiosResponse } from "axios";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router";
+import { useEffect, useState } from "react";
 
 export async function loader({ request, params }: Route.LoaderArgs):Promise<{ project: Project }> {
     const { id } = params;
@@ -32,6 +33,15 @@ export async function loader({ request, params }: Route.LoaderArgs):Promise<{ pr
 // TODO: As with layouts, rename to ProjectDetailsPage?
 function ProjectDetails({ loaderData }:Route.ComponentProps) {
     const { project } = loaderData;
+    const [hydrated, setHydrated] = useState(false);
+    useEffect(() => {
+        // This forces a rerender, so the date is rendered the second time but not the first
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
 
     return (
         <>

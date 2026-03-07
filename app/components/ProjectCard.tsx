@@ -1,7 +1,18 @@
 import type { Project } from "~/types";
 import { Link } from "react-router";
+import { useEffect, useState } from "react";
 
 function ProjectCard({ project }: { project: Project }) {
+    const [hydrated, setHydrated] = useState(false);
+    useEffect(() => {
+        // This forces a rerender, so the date is rendered the second time but not the first
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     return (
         <Link className="block transform transition duration-300 hover:scale-[1.02]" to={`/projects/${project.documentId}`}>
             <div className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden shadow-sm transition hover:shadow-md">
