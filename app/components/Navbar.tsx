@@ -69,24 +69,22 @@ function Navbar() {
             </div>
             
             {/* Mobile Nav, hidden for larger screens (md, medium and larger) */}
-            { menuOpen && (
-                <div className="md:hidden flex flex-col bg-gray-800 border-t border-gray-700 text-center">
-                    {/* TODO: extract to a component? */}
-                    {navLinks.map((navLink) => (
-                        <NavLink
-                            key={navLink.to}
-                            className={({ isActive }) =>
-                                (isActive ? navbarActiveClasses : navbarBaseClasses)
-                                + " py-1 pr-6 border-b border-gray-700 text-right"
-                            }
-                            to={navLink.to}
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            {navLink.label}
-                        </NavLink>
-                    ))}
-                </div>
-            )}
+            <div className={`md:hidden flex flex-col bg-gray-800 border-gray-700 border-t text-center overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                {/* TODO: extract to a component? */}
+                {navLinks.map((navLink) => (
+                    <NavLink
+                        key={navLink.to}
+                        className={({ isActive }) =>
+                            (isActive ? navbarActiveClasses : navbarBaseClasses)
+                            + " py-1 pr-6 border-b border-gray-700 text-right"
+                        }
+                        to={navLink.to}
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        {navLink.label}
+                    </NavLink>
+                ))}
+            </div>
         </nav>
     );
 }
