@@ -61,29 +61,29 @@ function Navbar() {
                     <button
                         className="text-blue-400 text-xl cursor-pointer"
                         title="Menu"
-                        onClick={ () => setMenuOpen((current) => !current)}
+                        onClick={() => setMenuOpen((current) => !current)}
                     >
-                        { menuOpen ? <FaTimes /> : <FaBars />}
+                        {menuOpen ? <FaTimes /> : <FaBars />}
                     </button>
                 </div>
-                {/* Mobile Nav, hidden for larger screens (md, medium and larger) */}
-                { menuOpen && (
-                    // TODO: style flex-col so the button stays in the same place and links are under the button in a column?
-                    <div className="md:hidden bg-gray-800 border-t border-gray-700 px-6 py-4 space-x-4 space-y-2 text-center">
-                        {/* TODO: extract to a component? */}
-                        {navLinks.map((navLink) => (
-                            <NavLink
-                                key={navLink.to}
-                                className={({ isActive }) =>
-                                    isActive ? navbarActiveClasses : navbarBaseClasses}
-                                to={navLink.to}
-                                onClick={() => setMenuOpen(false)}
-                            >
-                                {navLink.label}
-                            </NavLink>
-                        ))}
-                    </div>
-                )}
+            </div>
+            
+            {/* Mobile Nav, hidden for larger screens (md, medium and larger) */}
+            <div className={`md:hidden flex flex-col bg-gray-800 border-gray-700 border-t text-center overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                {/* TODO: extract to a component? */}
+                {navLinks.map((navLink) => (
+                    <NavLink
+                        key={navLink.to}
+                        className={({ isActive }) =>
+                            (isActive ? navbarActiveClasses : navbarBaseClasses)
+                            + " py-1 pr-6 border-b border-gray-700 text-right"
+                        }
+                        to={navLink.to}
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        {navLink.label}
+                    </NavLink>
+                ))}
             </div>
         </nav>
     );

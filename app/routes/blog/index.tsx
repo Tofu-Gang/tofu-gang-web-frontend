@@ -54,7 +54,7 @@ function Blog({ loaderData }:Route.ComponentProps) {
 
     const [currentPage, setCurrentPage] = useState(1);
     // TODO: move to some sort of global settings?
-    const postsPerPage = 2;
+    const postsPerPage = 10;
     // calculate total pages
     const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
     // get current page blog posts

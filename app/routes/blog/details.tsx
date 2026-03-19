@@ -44,7 +44,7 @@ function BlogPostDetails({ loaderData }: BlogPostDetailsProps) {
             <p className="text-sm text-gray-400 mb-6">{new Date(post.date).toDateString()}</p>
 
             {post?.image && (
-                <img src={post.image} alt={post.slug} className="w-full h-64 object-cover mb-4" />
+                <img src={post.image} alt={post.slug} className="w-full h-full object-cover mb-4" />
             )}
 
             <div className="max-w-none mb-12 prose prose-invert">

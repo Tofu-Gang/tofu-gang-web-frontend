@@ -51,7 +51,7 @@ function Projects({ loaderData }: Route.ComponentProps) {
 
     const [currentPage, setCurrentPage] = useState(1);
     // TODO: move to some sort of global settings?
-    const projectsPerPage = 2;
+    const projectsPerPage = 10;
     // calculate total pages
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
     // get current page projects
